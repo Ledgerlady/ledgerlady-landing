@@ -1,40 +1,33 @@
-import { BetterAbout, CareerAbout, MeetupAbout } from "@/constants/svg";
+import {
+  BetterAbout,
+  MeetupAbout,
+  OnlineCourse,
+  Organized,
+} from "@/constants/svg";
 
 export const aboutSource = [
   {
     icon: BetterAbout,
-    title: "Online Courses",
+    title: "Technical Sessions",
     subtitle:
-      "Explore a range of courses covering blockchain technology, crypto trading, smart contracts, and more, designed to make learning engaging and accessible.",
+      "Deep dives into blockchain systems, smart contracts, ZK, cryptography, hardware, and the ideas shaping the ecosystem.",
   },
   {
-    icon: CareerAbout,
-    title: "Blockchain MeetUps",
+    icon: OnlineCourse,
+    title: "Workshops & Builder Programs",
     subtitle:
-      "Join our in-person meetups to learn about the latest in blockchain, network with industry leaders, and share experiences with fellow enthusiasts.",
-  },
-  {
-    icon: MeetupAbout,
-    title: "Product Days",
-    subtitle:
-      "Dedicated sessions to help aspiring entrepreneurs create successful blockchain-based products. A focus on women-led startups to drive innovation in the industry.",
-  },
-  {
-    icon: BetterAbout,
-    title: "Career Days",
-    subtitle:
-      "Explore a range of courses covering blockchain technology, crypto trading, smart contracts, and more, designed to make learning engaging and accessible.",
-  },
-  {
-    icon: CareerAbout,
-    title: "Blockchain MeetUps",
-    subtitle:
-      "Join our in-person meetups to learn about the latest in blockchain, network with industry leaders, and share experiences with fellow enthusiasts.",
+      "Hands-on learning experiences designed to move members from curiosity to implementation with more confidence and structure.",
   },
   {
     icon: MeetupAbout,
-    title: "Product Days",
+    title: "Meetups & Community Events",
     subtitle:
-      "Dedicated sessions to help aspiring entrepreneurs create successful blockchain-based products. A focus on women-led startups to drive innovation in the industry.",
+      "Community gatherings that make room for learning, connection, and serious conversations about where members want to grow next.",
+  },
+  {
+    icon: Organized,
+    title: "Research & Ecosystem Collaboration",
+    subtitle:
+      "A growing layer of technical writing, shared resources, and partnerships that sharpen the community and the work it produces.",
   },
 ];
