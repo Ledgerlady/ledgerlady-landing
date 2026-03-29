@@ -1,35 +1,39 @@
 import { aboutSource } from "@/helpers/aboutSource";
 import Image from "next/image";
 import React from "react";
+import Reveal from "@/components/shared/Reveal";
 
 const About = () => {
   return (
-    <section className="flex flex-col items-center font-DM mt-[100px]">
-      <div className="max-w-[80%]">
-        <h2 className="text-black text-center text-3xl xsm:text-[40px] font-bold my-10 ">
-          What We Do
-        </h2>
-        <h4 className="text-[#596780ab] text-center text-base">
-          At Ledger Lady, we empower women with comprehensive knowledge in the
-          broader blockchain ecosystem. Our commitment goes beyond Bitcoin to
-          include various aspects of blockchain technology. We offer educational
-          resources, training programs, and support tailored for women,
-          fostering their growth in blockchain and cryptocurrency.
-        </h4>
-      </div>
-      <div className="flex flex-col md:flex-row items-center p-5 md:py-10 xl:px-20 max-w-[80%]">
-        <article className="text-black grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 justify-around md:justify-around lg:h-[500px]">
+    <section id="what-we-do" className="py-24 font-DM sm:py-28">
+      <div className="section-shell">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">What We Do</p>
+          <h2 className="mt-4 section-title">A community built for depth, momentum, and real technical growth.</h2>
+          <p className="mx-auto mt-5 max-w-2xl section-copy">
+            Ledger Lady exists to help more women move from curiosity to
+            capability, and from capability to real contribution. Our work is
+            no longer just about access. It is about helping members build
+            depth, confidence, and technical excellence over time.
+          </p>
+        </Reveal>
+
+        <article className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {aboutSource.map((element, index) => {
             return (
-              <div key={index} className="flex flex-col items-center xsm:my-2">
-                <Image src={element.icon} alt="wallet" className="my-2" />
-                <h3 className="text-black font-semibold text-xl xsm:text-2xl">
-                  {element.title}
-                </h3>
-                <p className="text-[#596780] mt-2 text-center">
-                  {element.subtitle}
-                </p>
-              </div>
+              <Reveal key={element.title} delay={index * 90}>
+                <div className="surface-card card-grid-glow flex h-full flex-col items-start p-8 text-left">
+                  <div className="rounded-2xl bg-[#f3fbff] p-4">
+                    <Image src={element.icon} alt="" className="my-1" />
+                  </div>
+                  <h3 className="mt-6 text-2xl font-semibold text-black">
+                    {element.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-7 text-[#596780]">
+                    {element.subtitle}
+                  </p>
+                </div>
+              </Reveal>
             );
           })}
         </article>

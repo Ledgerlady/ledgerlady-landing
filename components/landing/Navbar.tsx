@@ -1,119 +1,137 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { List, XCircle } from "@phosphor-icons/react";
-import { HifadhiLogo } from "@/constants/svg";
 import Link from "next/link";
-import { useRef } from "react";
+
 import { LedgerLadyLogo } from "@/constants/img";
+
+const links = [
+  { name: "Home", href: "/" },
+  { name: "Programs", href: "/programs" },
+  { name: "Events", href: "/events" },
+  { name: "Blog", href: "/blog" },
+  { name: "About", href: "/about" },
+];
+
+const MenuIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className="h-8 w-8 text-black"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+  >
+    <path d="M4 7h16" />
+    <path d="M4 12h16" />
+    <path d="M4 17h16" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    className="h-8 w-8 text-[#8d8d8d]"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+  >
+    <path d="M6 6l12 12" />
+    <path d="M18 6L6 18" />
+  </svg>
+);
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
-  const scrollRef = useRef<HTMLDivElement | null>();
-
   return (
-    <div className="">
-      <div className="flex justify-between items-center p-3 md:px-20 text-white">
-        <Link href="/" className=" w-auto flex items-center">
-          <Image src={LedgerLadyLogo} alt="atlas-logo" className="w-auto" />
+    <header className="sticky top-0 z-50 border-b border-[#edf4ff] bg-white/80 backdrop-blur-xl">
+      <div className="section-shell flex h-20 items-center justify-between font-DM">
+        <Link href="/" className="flex w-auto items-center">
+          <Image src={LedgerLadyLogo} alt="Ledger Lady logo" className="h-10 w-auto" />
         </Link>
-        <div className="block md:hidden">
-          <List
-            size={32}
-            color="#000000"
-            className="block lg:hidden"
-            onClick={toggleMenu}
-          />
-        </div>
-        <div
-          className="absolute top-0 left-0 right-0 sm:block bg-white p-5 sm:p-0 min-w-[200px] w-[100%] min-h-[800px] h-[100%]  "
-          style={showMenu ? { display: "block" } : { display: "none" }}
+
+        <button
+          type="button"
+          className="block md:hidden"
+          onClick={() => setShowMenu(true)}
+          aria-label="Open navigation menu"
         >
-          <XCircle
-            size={32}
-            color="#b8b8b8"
-            weight="fill"
-            onClick={toggleMenu}
-          />
-          <ul className="flex flex-col sm:flex-row justify-around text-base font-DM text-black w-auto">
-            <Link
-              href="/"
-              onClick={() => {
-                scrollRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                });
-              }}
-              className="my-2 mx-2 w-[100%] sm:min-w-[100px] text-black hover:text-aqua hover:cursor-pointer hover:underline "
+          <MenuIcon />
+        </button>
+
+        <div
+          className={`fixed inset-0 z-50 bg-white px-6 py-6 transition duration-300 md:hidden ${
+            showMenu ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-6 opacity-0"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <Image
+              src={LedgerLadyLogo}
+              alt="Ledger Lady logo"
+              className="h-10 w-auto"
+            />
+            <button
+              type="button"
+              onClick={() => setShowMenu(false)}
+              aria-label="Close navigation menu"
             >
-              Home
-            </Link>
-            <Link
-            href="/courses" className="my-2 mx-2 w-[100%] sm:min-w-[100px] text-black hover:text-aqua hover:cursor-pointer hover:underline ">
-              Course
-            </Link>
-            <Link
-            href="/events" className="my-2 mx-2 w-[100%] sm:min-w-[100px] text-black hover:text-aqua hover:cursor-pointer hover:underline ">
-              Events
-            </Link>
-            <Link
-            href="/blogs"
-              className="my-2 mx-1 w-[100%] min-w-[100px] text-black hover:text-aqua hover:cursor-pointer hover:underline "
-            >
-              Blogs
-            </Link>
+              <CloseIcon />
+            </button>
+          </div>
+
+          <ul className="mt-12 flex flex-col gap-5 text-lg text-black">
+            {links.map((link) => (
+              <li key={link.name}>
+                <Link
+                  href={link.href}
+                  onClick={() => setShowMenu(false)}
+                  className="transition hover:text-deepBlue"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
+
+          <Link
+            href="/#work-with-us"
+            onClick={() => setShowMenu(false)}
+            className="mt-10 inline-flex rounded-full border border-black bg-black px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-deepBlue"
+          >
+            Work With Us
+          </Link>
         </div>
 
-        <div className="hidden md:flex items-center">
-          <ul className=" flex flex-col sm:flex-row justify-around text-base font-DM text-[#A2A2A2] w-auto">
-            <Link
-            href="/" className="mx-2 w-[100%] text-black hover:text-aqua hover:cursor-pointer hover:underline ">
-              Home
-            </Link>
-            <Link
-            href="/courses"
-              className="mx-2 w-[100%] text-black hover:text-aqua hover:cursor-pointer hover:underline "
-            >
-              Courses
-            </Link>
-            <Link
-            href="/events"
-              className="mx-2 w-[100%] text-black hover:text-aqua hover:cursor-pointer hover:underline "
-            >
-              Events
-            </Link>
-            <Link
-            href="/blogs"
-
-              className="mx-2 w-[100%] text-black hover:text-aqua hover:cursor-pointer hover:underline "
-            >
-              Blogs
-            </Link>
-            <Link
-            href="/about"
-
-              className="mx-2 w-[100%] text-black hover:text-aqua hover:cursor-pointer hover:underline "
-            >
-              About
-            </Link>
+        <nav className="hidden md:flex items-center gap-8">
+          <ul className="flex items-center gap-8 text-base text-[#596780]">
+            {links.map((link) => (
+              <li key={link.name}>
+                <Link
+                  href={link.href}
+                  className="transition hover:text-deepBlue hover:underline"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
           </ul>
-        </div>
+        </nav>
+
         <div className="hidden md:flex">
           <Link
-          href="/"
-            className=" py-2 px-6 rounded-full border bg-black text-white text-sm"
+            href="/#work-with-us"
+            className="rounded-full border border-black bg-black px-6 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-deepBlue"
           >
-            Apply
+            Work With Us
           </Link>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
