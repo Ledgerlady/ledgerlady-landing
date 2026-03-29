@@ -1,154 +1,79 @@
-import { client, urlFor } from "@/lib/sanity";
-import { BlogArticle } from "@/types/interface";
-import { format } from "date-fns";
+import Image from "next/image";
 import Link from "next/link";
 
-const blogs = [
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    category: { title: 'Marketing', href: '#' },
-    author: {
-      name: 'Michael Foster',
-      role: 'Co-Founder / CTO',
-      href: '#',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
+import { blogPosts } from "@/content/site";
+import Reveal from "@/components/shared/Reveal";
 
-  // More blogs...
-]
-
-async function getData() {
-  const query = `*[_type == 'blog'] | order(_createdAt desc){
-    title,
-      description,
-      "currentSlug": slug.current,
-      "imageUrl": imageUrl.asset._ref,
-      content,
-      "dateTime": _createdAt,
-      "updatedAt": _updatedAt,
-      date,
-      category,
-      link,
-      "categoryTitle":category.title,
-      "authorName":author.name,
-      "authorRole":author.role,
-      "authorImageUrl": author.imageUrl.asset._ref,
-  }`;
-
-  const data = await client.fetch(query, {}, { cache: "no-store" });
-  return data;
-}
-
-const Blogs = async () => {
-  const data = await getData();
+const Blogs = () => {
   return (
-    <div className="bg-white py-24 sm:py-32 font-DM">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Blogs from the Community</h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-          At Ledger Lady, we empower women with comprehensive knowledge in the broader blockchain ecosystem. Our commitment goes beyond Bitcoin to include various aspects of blockchain technology. We offer educational resources, training programs, and support tailored for women, fostering their growth in blockchain and cryptocurrency.
+    <section id="blog" className="py-24 font-DM sm:py-28">
+      <div className="section-shell">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">From the Community</p>
+          <h2 className="mt-4 section-title">
+            Writing that reflects the depth of the people building here.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl section-copy">
+            Ledger Lady&apos;s writing reflects the range of the community:
+            legal, cryptography, ZK, hardware, and the broader systems shaping
+            blockchain.
           </p>
-        </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {data.map((blog: BlogArticle) => (
-            <Link href={`/blog/${blog.currentSlug}`} key={blog.id} className="flex flex-col items-start justify-between">
-              <div className="relative w-full">
-                <img
-                  src={urlFor(blog.imageUrl).url()}
-                  alt=""
-                  className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                />
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-              </div>
-              <div className="max-w-xl">
-                <div className="mt-8 flex items-center gap-x-4 text-xs">
-                  <time dateTime={format(new Date(blog.dateTime), "PP")} className="text-gray-500">
-                    {format(new Date(blog.dateTime), "PP")}
-                  </time>
-                  <span
-                    
-                    className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                  >
-                    {blog.categoryTitle}
-                  </span>
-                </div>
-                <div className="group relative">
-                  <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <span>
-                      <span className="absolute inset-0" />
-                      {blog.title}
-                    </span>
-                  </h3>
-                  <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{blog.description}</p>
-                </div>
-                <div className="relative mt-8 flex items-center gap-x-4">
-                  <img src={urlFor(blog.authorImageUrl).url()} alt="" className="h-10 w-10 rounded-full bg-gray-100" />
-                  <div className="text-sm leading-6">
-                    <p className="font-semibold text-gray-900">
-                      <a href={blog.authorName}>
-                        <span className="absolute inset-0" />
-                        {blog.authorName}
-                      </a>
-                    </p>
-                    <p className="text-gray-600">{blog.authorRole}</p>
+        </Reveal>
+
+        <div className="mt-16 grid gap-8 lg:grid-cols-3">
+          {blogPosts.map((blog, index) => (
+            <Reveal key={blog.slug} delay={index * 90}>
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="group flex h-full flex-col justify-between"
+              >
+                <article className="surface-card h-full overflow-hidden p-4">
+                  <div className="relative">
+                    <Image
+                      src={blog.image}
+                      alt={blog.title}
+                      className="aspect-[16/10] w-full rounded-[22px] object-cover"
+                    />
                   </div>
-                </div>
-              </div>
-            </Link>
+                  <div className="px-2 pb-2 pt-6">
+                    <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#596780]">
+                      <span className="rounded-full bg-[#eef6ff] px-3 py-1.5 text-deepBlue">
+                        {blog.category}
+                      </span>
+                      <span>{blog.publishedAt}</span>
+                    </div>
+                    <h3 className="mt-4 text-2xl font-semibold leading-8 text-black transition group-hover:text-deepBlue">
+                      {blog.title}
+                    </h3>
+                    <p className="mt-4 text-base leading-7 text-[#596780]">
+                      {blog.description}
+                    </p>
+                    <div className="mt-8 flex items-center gap-4">
+                      <div className="h-11 w-11 overflow-hidden rounded-full">
+                        <Image
+                          src={blog.image}
+                          alt={blog.authorName}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-black">
+                          {blog.authorName}
+                        </p>
+                        <p className="text-sm text-[#596780]">
+                          {blog.authorRole}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </div>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
 export default Blogs;

@@ -1,131 +1,65 @@
-import { client, urlFor } from "@/lib/sanity";
-import { CourseInterface } from "@/types/interface";
-import Link from "next/link"
-import { format } from "date-fns";
+import Image from "next/image";
+import Link from "next/link";
 
-const posts = [
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    author: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    author: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    id: 1,
-    title: 'Boost your conversion rate',
-    href: '#',
-    description:
-      'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    author: {
-      name: 'Michael Foster',
-      imageUrl:
-        'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  
-  // More posts...
-]
+import { programs } from "@/content/site";
+import Reveal from "@/components/shared/Reveal";
 
-async function getData() {
-  const query = `*[_type == 'course'] | order(_createdAt desc){
-    title,
-      description,
-      "currentSlug": slug.current,
-      "imageUrl": imageUrl.asset._ref,
-      content,
-      "dateTime": _createdAt,
-      "updatedAt": _updatedAt,
-      date,
-      category,
-      link,
-      "categoryTitle":category.title,
-      "authorName":author.name,
-      "authorRole":author.role,
-      "authorImageUrl": author.imageUrl.asset._ref,
-  }`;
-
-  const data = await client.fetch(query, {}, { cache: "no-store" });
-  return data;
-}
-
-const Courses = async () => {
-  const data = await getData();
-
+const Courses = () => {
   return (
-    <div className="bg-white py-24 sm:py-32 font-DM">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto  text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Courses to advance your Blockchain Studies</h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Learn how to grow your business with our expert advice.
+    <section id="programs" className="py-24 font-DM sm:py-28">
+      <div className="section-shell">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">Programs</p>
+          <h2 className="mt-4 section-title">
+            Learning experiences that move members from interest to implementation.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl section-copy">
+            Our learning experiences are designed to move members from interest
+            to implementation, and from implementation to stronger technical
+            judgment.
           </p>
-        </div>
-        <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {data.map((course: CourseInterface) => (
-            <Link href={`/course/${course.currentSlug}`}
-              key={course.id}
-              className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
-            >
-              <img src={urlFor(course.imageUrl).url()} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
-              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
-              <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+        </Reveal>
 
-              <div className="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                <time dateTime={format(new Date(course.dateTime), "PP")} className="mr-8">
-                  {format(new Date(course.dateTime), "PP")}
-                </time>
-                <div className="-ml-4 flex items-center gap-x-4">
-                  <svg viewBox="0 0 2 2" className="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
-                    <circle cx={1} cy={1} r={1} />
-                  </svg>
-                  <div className="flex gap-x-2.5">
-                    <img src={urlFor(course.authorImageUrl).url()} alt="" className="h-6 w-6 flex-none rounded-full bg-white/10" />
-                    {course.authorName}
+        <div className="mt-16 grid gap-8 lg:grid-cols-3">
+          {programs.map((program, index) => (
+            <Reveal key={program.slug} delay={index * 100}>
+              <Link
+                href={`/course/${program.slug}`}
+                className="group block h-full"
+              >
+                <article className="surface-card card-grid-glow h-full overflow-hidden p-4">
+                  <div className="relative h-64 overflow-hidden rounded-[22px]">
+                    <Image
+                      src={program.image}
+                      alt={program.title}
+                      width={1200}
+                      height={900}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-white/10" />
+                    <span className="absolute left-4 top-4 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-deepBlue">
+                      {program.eyebrow}
+                    </span>
                   </div>
-                </div>
-              </div>
-              <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
-                <span>
-                  <span className="absolute inset-0" />
-                  {course.title}
-                </span>
-              </h3>
-            </Link>
+                  <div className="px-2 pb-3 pt-6">
+                    <h3 className="text-2xl font-semibold text-black">
+                      {program.title}
+                    </h3>
+                    <p className="mt-4 text-base leading-7 text-[#596780]">
+                      {program.description}
+                    </p>
+                    <span className="mt-6 inline-flex items-center text-sm font-semibold text-deepBlue transition group-hover:translate-x-1">
+                      Learn more →
+                    </span>
+                  </div>
+                </article>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </div>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default Courses
+export default Courses;

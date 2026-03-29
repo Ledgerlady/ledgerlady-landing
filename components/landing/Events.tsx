@@ -1,102 +1,89 @@
-import { Location } from "@/constants/svg";
-import { client, urlFor } from "@/lib/sanity";
-import { BlogArticle, EventInterface } from "@/types/interface";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-export const revalidate = 30;
-import { format } from "date-fns";
 
-async function getData() {
-  const query = `*[_type == 'event'] | order(_createdAt desc){
-    title,
-      description,
-      "currentSlug": slug.current,
-      "imageUrl": imageUrl.asset._ref,
-      content,
-      "dateTime": _createdAt,
-      "updatedAt": _updatedAt,
-      date,
-      category,
-      building,
-      location,
-      link,
-      "categoryTitle":category.title,
-      "authorName":author.name,
-      "authorRole":author.role,
-      "authorImageUrl": author.imageUrl.asset._ref,
-  }`;
+import { communityHighlights } from "@/content/site";
+import Reveal from "@/components/shared/Reveal";
 
-  const data = await client.fetch(query, {}, { cache: "no-store" });
-  return data;
-}
-
-const Events = async () => {
-  const data = await getData();
+const Events = () => {
+  const featuredEvent = communityHighlights[0];
+  const supportingEvents = communityHighlights.slice(1);
 
   return (
-    <section className="text-black font-DM  p-5 mx-auto max-w-7xl px-6 lg:px-8">
-      <article className="">
-        <h2 className="text-black text-center text-3xl xsm:text-[40px] font-bold my-10 ">
-          Events to Join
-        </h2>
-        <h4 className="text-[#596780ab] text-center text-base">
-          At Ledger Lady, we empower women with comprehensive knowledge in the
-          broader blockchain ecosystem. Our commitment goes beyond Bitcoin to
-          include various aspects of blockchain technology. We offer educational
-          resources, training programs, and support tailored for women,
-          fostering their growth in blockchain and cryptocurrency.
-        </h4>
-      </article>
-      <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 ">
-        {data.map((event: EventInterface) => (
-          <Link
-            href={`/${event.link}`}
-            key={event.id}
-            className="flex flex-col items-start justify-start bg-[#a5a5a518] rounded-2xl overflow-hidden"
-          >
-            <div className="relative w-full h-[300px] overflow-hidden object-contain">
-              {event.imageUrl && (
-                <Image
-                  src={urlFor(event.imageUrl).url()}
-                  alt=""
-                  width={0}
-                  height={0}
-                  className="w-full h-full object-cover"
-                />
-              )}
-            </div>
-            <div className="w-full h-[1/2] p-5 flex flex-col justify-around">
-              <div className=" flex items-center text-xs mb-2">
-                <span className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                  {event.categoryTitle}
-                </span>
-              </div>
-              <div className="group relative">
-                <div className="flex items-center">
-                  <span className="flex flex-col items-center m-2">
-                    <h4 className="text-blue-700 font-semibold">{format(new Date(event.dateTime), "MMM")}</h4>
-                    <h2 className="text-blue-950 text-4xl font-bold">{format(new Date(event.dateTime), "co")}</h2>
-                  </span>
-                  <span className="mt-3 ml-5 text-lg font-semibold text-black">
-                    {event.title}
-                  </span>
+    <section id="community-highlights" className="py-24 font-DM sm:py-28">
+      <div className="section-shell">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">Community Highlights</p>
+          <h2 className="mt-4 section-title">
+            A growing body of work across events, series, and community milestones.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl section-copy">
+            From launch moments to workshops, recurring technical series, and
+            community milestones, Ledger Lady has built a body of work worth
+            documenting.
+          </p>
+        </Reveal>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-[1.4fr_0.9fr]">
+          <Reveal>
+            <Link href={featuredEvent.href} className="group block h-full">
+              <article className="surface-card grid h-full overflow-hidden p-0 lg:grid-cols-[minmax(280px,380px)_1fr]">
+                <div className="relative aspect-square overflow-hidden bg-[#09111f]">
+                  <Image
+                    src={featuredEvent.image}
+                    alt={featuredEvent.title}
+                    width={1080}
+                    height={1080}
+                    className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
                 </div>
-                <div className="flex items-center m-2">
-                  <Image src={Location} alt="" />
-                  <div className="mx-2 ml-5">
-                    <p className="mt-1 line-clamp-3 text-sm leading-6 text-gray-400">
-                      {event.building}
-                    </p>
-                    <p className=" line-clamp-3 text-sm leading-6 text-gray-400">
-                      {event.location}
-                    </p>
-                  </div>
+                <div className="flex flex-col justify-end bg-gradient-to-br from-[#0b1220] via-[#0f172a] to-[#13203f] p-7 sm:p-9">
+                  <span className="inline-flex w-fit rounded-full bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-deepBlue">
+                    {featuredEvent.label}
+                  </span>
+                  <h3 className="mt-5 text-3xl font-semibold text-white sm:text-4xl">
+                    {featuredEvent.title}
+                  </h3>
+                  <p className="mt-5 max-w-2xl text-base leading-7 text-white/85">
+                    {featuredEvent.description}
+                  </p>
                 </div>
-              </div>
-            </div>
-          </Link>
-        ))}
+              </article>
+            </Link>
+          </Reveal>
+
+          <div className="grid gap-6">
+            {supportingEvents.map((event, index) => (
+              <Reveal key={event.title} delay={index * 100}>
+                <Link href={event.href} className="group block h-full">
+                  <article className="surface-card flex h-full flex-col overflow-hidden p-4">
+                    <div className="relative h-52 overflow-hidden rounded-[22px]">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        width={1200}
+                        height={900}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-white/10" />
+                    </div>
+                    <div className="px-2 pb-2 pt-6">
+                      <span className="inline-flex rounded-full bg-[#eef6ff] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-deepBlue">
+                        {event.label}
+                      </span>
+                      <h3 className="mt-4 text-2xl font-semibold text-black">
+                        {event.title}
+                      </h3>
+                      <p className="mt-4 text-base leading-7 text-[#596780]">
+                        {event.description}
+                      </p>
+                    </div>
+                  </article>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
