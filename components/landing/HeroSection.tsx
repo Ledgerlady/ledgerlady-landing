@@ -14,8 +14,7 @@ const HeroSection = () => {
 
       <div className="section-shell flex flex-col items-center text-center">
         <Reveal className="max-w-4xl">
-          <p className="section-kicker">Women-led. Builder-first. Ecosystem-connected.</p>
-          <h1 className="mt-6 text-4xl font-semibold leading-[1.05] text-black md:text-[54px] lg:text-[68px]">
+          <h1 className="text-4xl font-semibold leading-[1.05] text-black md:text-[54px] lg:text-[68px]">
             Beyond Access. Toward{" "}
             <span className="gradient-word">Technical</span>{" "}
             <span className="gradient-word">Excellence.</span>

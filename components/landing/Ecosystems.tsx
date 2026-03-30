@@ -13,10 +13,7 @@ const Ecosystems = () => {
           <div className="overflow-hidden rounded-[28px] bg-gradient-to-r from-[#f6fdff] via-white to-[#f7f9ff] px-6 py-8 shadow-[0_20px_60px_rgba(8,28,58,0.06)] sm:px-10">
             <div className="flex flex-col gap-8">
               <div className="max-w-2xl">
-                <p className="section-kicker">Ecosystems We&apos;ve Worked With</p>
-                <h2 className="mt-3 text-2xl font-bold text-black sm:text-3xl">
-                  Community-building across leading blockchain ecosystems.
-                </h2>
+                <p className="section-kicker">Trusted By</p>
               </div>
 
               <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
