@@ -103,6 +103,36 @@ body {
   .marquee-track {
     animation: marquee 22s linear infinite;
   }
+
+  .gallery-carousel-stage {
+    perspective: 1600px;
+    perspective-origin: 50% 42%;
+  }
+
+  .gallery-carousel-card {
+    transform-style: preserve-3d;
+    transition:
+      transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 800ms ease,
+      filter 800ms ease;
+    will-change: transform, opacity, filter;
+  }
+
+  .gallery-carousel-card[data-hovered="true"] {
+    filter: saturate(1.04) brightness(1.01) !important;
+    z-index: 60 !important;
+  }
+
+  .gallery-carousel-card[data-hovered="true"] > div {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 32px 100px rgba(13, 37, 62, 0.2);
+  }
+
+  .gallery-carousel-card > div {
+    transition:
+      transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 500ms ease;
+  }
 }
 
 @keyframes marquee {
@@ -128,5 +158,9 @@ body {
 
   .marquee-track {
     animation: none;
+  }
+
+  .gallery-carousel-card {
+    transition: none;
   }
 }
