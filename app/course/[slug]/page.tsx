@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Footer from "@/components/landing/Footer";
 import MarketingSection from "@/components/landing/MarketingSection";
 import Navbar from "@/components/landing/Navbar";
+import AnimatedGalleryCarousel from "@/components/shared/AnimatedGalleryCarousel";
 import { programs, socialLinks } from "@/content/site";
 
 const CourseStructure = ({ params }: { params: { slug: string } }) => {
@@ -125,31 +126,7 @@ const CourseStructure = ({ params }: { params: { slug: string } }) => {
                     "A visual archive of the program, its moments, and the community around it."}
                 </p>
               </div>
-              <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {program.gallery.map((image, index) => (
-                  <div
-                    key={`${image.alt}-${index}`}
-                    className={`overflow-hidden rounded-[28px] border border-[#E8EEF7] bg-white shadow-[0_18px_60px_rgba(13,37,62,0.08)] ${
-                      index === 0 ? "sm:col-span-2 xl:col-span-2" : ""
-                    }`}
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      width={1400}
-                      height={1000}
-                      className={`w-full object-cover ${
-                        index === 0 ? "h-[360px]" : "h-[280px]"
-                      }`}
-                    />
-                    {image.caption && (
-                      <div className="border-t border-[#E8EEF7] px-5 py-4 text-sm font-medium text-[#596780]">
-                        {image.caption}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <AnimatedGalleryCarousel items={program.gallery} />
             </div>
           )}
         </div>
