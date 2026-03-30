@@ -67,24 +67,10 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-16 border-t border-[#e8eef7] pt-8 md:flex md:items-center md:justify-between">
+        <div className="mt-16 border-t border-[#e8eef7] pt-8">
           <p className="text-sm leading-6 text-[#596780]">
             © 2026 Ledger Lady. All rights reserved.
           </p>
-          <div className="mt-4 flex gap-6 md:mt-0">
-            <Link href="/about" className="text-sm leading-6 text-[#596780] transition hover:text-deepBlue">
-              About
-            </Link>
-            <Link href="/programs" className="text-sm leading-6 text-[#596780] transition hover:text-deepBlue">
-              Programs
-            </Link>
-            <Link href="/events" className="text-sm leading-6 text-[#596780] transition hover:text-deepBlue">
-              Events
-            </Link>
-            <Link href="/blog" className="text-sm leading-6 text-[#596780] transition hover:text-deepBlue">
-              Blog
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
