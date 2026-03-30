@@ -118,11 +118,11 @@ const CourseStructure = ({ params }: { params: { slug: string } }) => {
               <div className="max-w-3xl">
                 <p className="section-kicker">Gallery</p>
                 <h2 className="mt-4 text-3xl font-bold text-black sm:text-4xl">
-                  Moments from the cohort
+                  {program.galleryTitle ?? "Gallery highlights"}
                 </h2>
                 <p className="mt-4 text-base leading-7 text-[#596780]">
-                  A first visual archive of the Solidity Cohort, including the
-                  poster, graduation moments, and the energy around the program.
+                  {program.galleryDescription ??
+                    "A visual archive of the program, its moments, and the community around it."}
                 </p>
               </div>
               <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
