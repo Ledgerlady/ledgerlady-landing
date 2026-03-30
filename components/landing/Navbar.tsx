@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Link from "next/link";
 
+import { linktreeUrl } from "@/content/site";
 import { LedgerLadyLogo } from "@/constants/img";
 
 const links = [
@@ -98,13 +99,15 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <Link
-            href="/#work-with-us"
+          <a
+            href={linktreeUrl}
+            target="_blank"
+            rel="noreferrer"
             onClick={() => setShowMenu(false)}
             className="mt-10 inline-flex rounded-full border border-black bg-black px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-deepBlue"
           >
-            Work With Us
-          </Link>
+            Join the Community
+          </a>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -123,12 +126,14 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:flex">
-          <Link
-            href="/#work-with-us"
+          <a
+            href={linktreeUrl}
+            target="_blank"
+            rel="noreferrer"
             className="rounded-full border border-black bg-black px-6 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-deepBlue"
           >
-            Work With Us
-          </Link>
+            Join the Community
+          </a>
         </div>
       </div>
     </header>
