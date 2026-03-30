@@ -1,5 +1,6 @@
 import About from "@/components/landing/About";
 import Blogs from "@/components/landing/Blogs";
+import CommunityPartners from "@/components/landing/CommunityPartners";
 import Courses from "@/components/landing/Courses";
 import Ecosystems from "@/components/landing/Ecosystems";
 import Events from "@/components/landing/Events";
@@ -18,6 +19,7 @@ export default function Home() {
       <HeroSection />
       <About />
       <Ecosystems />
+      <CommunityPartners />
       <Courses />
       <Events />
       <Team />
