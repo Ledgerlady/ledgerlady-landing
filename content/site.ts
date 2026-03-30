@@ -19,6 +19,8 @@ export type ProgramContent = {
   detailIntro: string;
   stats?: string[];
   outcomes: string[];
+  galleryTitle?: string;
+  galleryDescription?: string;
   gallery?: {
     src: ImageLike;
     alt: string;
@@ -75,6 +77,21 @@ export const ecosystems = [
   },
 ];
 
+export const communityPartners: { name: string; logo?: string }[] = [
+  {
+    name: "Web3Clubs",
+    logo: "/images/communities/web3clubslogo.jpg",
+  },
+  {
+    name: "Base East Africa",
+    logo: "/images/communities/baseeastafrica.jpeg",
+  },
+  {
+    name: "Chasing Mavericks",
+    logo: "/images/communities/chasing-mavericks.png",
+  },
+];
+
 export const linktreeUrl = "https://linktr.ee/Ledgerlady";
 export const contactEmail = "ledgerlady.empower@gmail.com";
 
@@ -101,6 +118,9 @@ export const programs: ProgramContent[] = [
       "A stronger grasp of how builders move from theory to implementation",
       "A cohort-based learning experience with accountability and support",
     ],
+    galleryTitle: "Moments from the cohort",
+    galleryDescription:
+      "A visual archive of the Solidity Cohort, including the poster, graduation moments, and the energy around the program.",
     gallery: [
       {
         src: "/images/programs/solidity-cohort-2025/solidity_cohort_poster.jpeg",
@@ -153,6 +173,9 @@ export const programs: ProgramContent[] = [
       "Shared resources that members can revisit after each session",
       "A recurring technical rhythm that deepens over time",
     ],
+    galleryTitle: "Inside the series",
+    galleryDescription:
+      "Posters, session moments, and visual snapshots from Proof of Wednesdays and the learning rhythm it created.",
     gallery: [
       {
         src: "/images/programs/proof-of-wednesdays/poster-01.jpeg",
@@ -205,6 +228,9 @@ export const programs: ProgramContent[] = [
       "A foundation for documenting future resources more intentionally",
       "A way to show the consistency behind the work",
     ],
+    galleryTitle: "Moments from workshops and meetups",
+    galleryDescription:
+      "A collage from sessions, meetups, and community moments across the workshops Ledger Lady has hosted over the last two years.",
     gallery: [
       {
         src: "/images/programs/workshop-archive/arbitrum_nairobi_summit.jpeg",
